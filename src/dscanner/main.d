@@ -23,6 +23,7 @@ import dparse.rollback_allocator;
 import dscanner.highlighter;
 import dscanner.stats;
 import dscanner.ctags;
+import dscanner.publicinterface;
 import dscanner.etags;
 import dscanner.astprinter;
 import dscanner.imports;
@@ -68,6 +69,7 @@ else
 	bool printVersion;
 	bool explore;
 	string errorFormat;
+	bool publicinterface;
 
 	try
 	{
@@ -96,6 +98,7 @@ else
 				"muffinButton", &muffin,
 				"explore", &explore,
 				"skipTests", &skipTests,
+				"publicinterface", &publicinterface,
 				"errorFormat|f", &errorFormat);
 		//dfmt on
 	}
@@ -140,6 +143,12 @@ else
 	if (printVersion)
 	{
 		writeln(DSCANNER_VERSION);
+		return 0;
+	}
+
+	if (publicinterface)
+	{
+		genPublicInterface(expandArgs(args));
 		return 0;
 	}
 
